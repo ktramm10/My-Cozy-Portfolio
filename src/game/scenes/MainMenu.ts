@@ -1,13 +1,20 @@
 import { GameObjects, Scene } from 'phaser';
 
 import { EventBus } from '../EventBus';
+import { Input } from 'phaser';
+
+interface WASDKeys {
+    W: Input.Keyboard.Key;
+    A: Input.Keyboard.Key;
+    S: Input.Keyboard.Key;
+    D: Input.Keyboard.Key;
+}
 
 export class MainMenu extends Scene
 {
     background: GameObjects.Image;
     logo: GameObjects.Image;
-    title: GameObjects.Text;
-    logoTween: Phaser.Tweens.Tween | null;
+    wasdKeys!: WASDKeys;
 
     constructor ()
     {
@@ -19,58 +26,48 @@ export class MainMenu extends Scene
         this.background = this.add.image(512, 384, 'background');
 
         this.logo = this.add.image(512, 300, 'logo').setDepth(100);
-
-        this.title = this.add.text(512, 460, 'Main Menu', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setOrigin(0.5).setDepth(100);
+        this.wasdKeys = this.input.keyboard!.addKeys('W,A,S,D') as WASDKeys;
+        
 
         EventBus.emit('current-scene-ready', this);
     }
-    
-    changeScene ()
-    {
-        if (this.logoTween)
-        {
-            this.logoTween.stop();
-            this.logoTween = null;
+
+    update(time: number, delta: number): void {
+        let dx = 0;
+        let dy = 0;
+
+        const speed = 200; // Pixels per second
+        const dt = delta / 1000; // Milliseconds to seconds
+
+        if (this.wasdKeys.W.isDown) {
+            dy -= 1;
         }
 
-        this.scene.start('Game');
+        if (this.wasdKeys.A.isDown) {
+            dx -= 1;
+        }
+
+        if (this.wasdKeys.S.isDown) {
+            dy += 1;
+        }
+
+        if (this.wasdKeys.D.isDown) {
+            dx += 1;
+        }
+
+        // Normalize diagonal movement
+        const length = Math.sqrt(dx * dx + dy * dy);
+
+        if (length > 0) {
+            dx /= length;
+            dy /= length;
+        }
+        this.moveLogo(dx * speed * dt, dy * speed * dt);
     }
 
-    moveLogo (reactCallback: ({ x, y }: { x: number, y: number }) => void)
+    moveLogo (dx: number, dy:number)
     {
-        if (this.logoTween)
-        {
-            if (this.logoTween.isPlaying())
-            {
-                this.logoTween.pause();
-            }
-            else
-            {
-                this.logoTween.play();
-            }
-        } 
-        else
-        {
-            this.logoTween = this.tweens.add({
-                targets: this.logo,
-                x: { value: 750, duration: 3000, ease: 'Back.easeInOut' },
-                y: { value: 80, duration: 1500, ease: 'Sine.easeOut' },
-                yoyo: true,
-                repeat: -1,
-                onUpdate: () => {
-                    if (reactCallback)
-                    {
-                        reactCallback({
-                            x: Math.floor(this.logo.x),
-                            y: Math.floor(this.logo.y)
-                        });
-                    }
-                }
-            });
-        }
+        this.logo.setPosition(this.logo.x + dx, this.logo.y + dy);
+        
     }
 }
