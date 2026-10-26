@@ -1,7 +1,6 @@
-import { useRef, useState } from 'react';
-import Phaser from 'phaser';
-import { IRefPhaserGame, PhaserGame } from './PhaserGame';
-import { IsoGame } from './game/scenes/IsoGame';
+
+import { PhaserGame } from './PhaserGame';
+
 import ProjectOverlay from './components/ProjectOverlay';
 
 function App()

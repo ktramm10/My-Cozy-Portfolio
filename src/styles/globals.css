@@ -23,27 +23,44 @@ body {
 
 .project-overlay {
     position: absolute;
-    bottom: 20px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
 
     z-index: 10;
 
-    width: 320px;
-    padding: 20px;
+    /* 480px on large screens, but never wider than 90% of the game area */
+    width: min(480px, 90%);
+    max-height: 80%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 28px 32px;
 
     background: rgba(20, 25, 30, 0.95);
     color: white;
+    line-height: 1.5;
 
     border: 1px solid #444;
     border-radius: 12px;
 
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+
+    animation: popup-appear 0.2s ease-out;
+}
+
+.project-overlay h2 {
+    margin: 0 0 12px;
+    font-size: 24px;
+}
+
+.project-overlay p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .project-overlay a {
     display: inline-block;
-    margin-top: 12px;
+    margin-top: 20px;
     padding: 10px 16px;
 
     background: #2d6a4f;
@@ -55,4 +72,68 @@ body {
 
 .project-overlay a:hover {
     background: #40916c;
+}
+
+/* "Press E" prompt, centred over the game while the player stands on a project tile */
+.popup_interaction {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    z-index: 10;
+
+    padding: 6px 14px;
+
+    background: rgba(20, 25, 30, 0.75);
+    border: 1px solid #2d6a4f;
+    border-radius: 999px; /* pill shape */
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+    /* Let mouse clicks pass through to the game underneath */
+    pointer-events: none;
+
+    animation:
+        popup-appear 0.2s ease-out,
+        popup-pulse 1.6s ease-in-out 0.2s infinite;
+}
+
+.popup_interaction_text {
+    margin: 0;
+
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+/* Grows in from slightly smaller when the prompt first shows up */
+@keyframes popup-appear {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Gentle glow so the prompt catches the eye without moving around */
+@keyframes popup-pulse {
+    0%, 100% {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 0 0 0 rgba(64, 145, 108, 0.5);
+    }
+    50% {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 0 0 4px rgba(64, 145, 108, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .popup_interaction,
+    .project-overlay {
+        animation: none;
+    }
 }

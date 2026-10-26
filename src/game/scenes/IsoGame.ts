@@ -5,11 +5,12 @@ import { projectZones } from '@/util/projectZones';
 import Phaser from 'phaser';
 import { PlayerCharacter } from '../components/PlayerCharacter';
 
-interface WASDKeys {
+interface Controls {
     W: Phaser.Input.Keyboard.Key;
     A: Phaser.Input.Keyboard.Key;
     S: Phaser.Input.Keyboard.Key;
     D: Phaser.Input.Keyboard.Key;
+    E: Phaser.Input.Keyboard.Key;
 }
 
 
@@ -29,8 +30,9 @@ export class IsoGame extends Scene
         ['grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'water']
     ];
     private playerCharacter! : PlayerCharacter;
-    private keys! : WASDKeys;
+    private keys! : Controls;
     private activeZoneId: string | null = null;
+    private isPCInZone: boolean = false;
 
    
     
@@ -51,6 +53,7 @@ export class IsoGame extends Scene
             A: this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.A),
             S: this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.S),
             D: this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+            E: this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.E),
         };
 
     }
@@ -88,6 +91,7 @@ export class IsoGame extends Scene
         this.playerCharacter.setDepth(this.playerCharacter.y);
         const direction = this.getGridDirectionFromInput();
         const distance = this.playerSpeed * (delta / 1000); // tiles to move this frame
+
         if (direction.x == -1 && direction.y == 0) { // w movement
             this.playerCharacter.anims.play("run_up_left_right", true);
             this.playerCharacter.flipX = true;
@@ -129,6 +133,9 @@ export class IsoGame extends Scene
         this.playerCharacter.moveOnGrid(direction.x * distance, direction.y * distance);
 
         this.checkProjectZones();
+        if (this.keys.E.isDown) {
+            EventBus.emit("project-interaction-activated");
+        }
     }
 
     
