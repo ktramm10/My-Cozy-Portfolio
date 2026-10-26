@@ -1,23 +1,18 @@
+import Phaser from "phaser";
 import { TILE_WIDTH, TILE_HEIGHT, SCENE_WIDTH, SCENE_HEIGHT } from "./Constants";
-
-
-export interface Point {
-    x: number;
-    y: number;
-}
 
 const originX = SCENE_WIDTH / 2;
 const originY = 300;
 
-export function getPixelPositionOfTile(x : number, y : number) : Point {
+export function getPixelPositionOfTile(x : number, y : number) : Phaser.Math.Vector2 {
 
     const res_x = (y - x) * (TILE_WIDTH / 2) + originX;
     const res_y = (y + x) * (TILE_HEIGHT / 2) + originY;
 
-    return { x : res_x, y : res_y};
+    return new Phaser.Math.Vector2(res_x, res_y);
 }
 
-export function getTilePositionOfPixel(x: number, y: number) : Point {
+export function getTilePositionOfPixel(x: number, y: number) : Phaser.Math.Vector2 {
     // Inverse of getPixelPositionOfTile:
     //   a = (x - originX) / (TILE_WIDTH / 2)  = gridY - gridX
     //   b = (y - originY) / (TILE_HEIGHT / 2) = gridY + gridX
@@ -28,5 +23,5 @@ export function getTilePositionOfPixel(x: number, y: number) : Point {
     // top corner; flooring maps any pixel inside the diamond to that tile's index.
     const gridX = Math.floor((b - a) / 2);
     const gridY = Math.floor((b + a) / 2);
-    return {x: gridX, y: gridY};
+    return new Phaser.Math.Vector2(gridX, gridY);
 }

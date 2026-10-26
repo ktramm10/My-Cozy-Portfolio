@@ -1,4 +1,5 @@
-import { getPixelPositionOfTile, Point } from "@/util/IsometricUtils";
+import { GRID_SIZE_X, GRID_SIZE_Y } from "@/util/Constants";
+import { getPixelPositionOfTile, getTilePositionOfPixel } from "@/util/IsometricUtils";
 import Phaser from "phaser"
 
 export class PlayerCharacter extends Phaser.GameObjects.Sprite {
@@ -18,6 +19,7 @@ export class PlayerCharacter extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
     }
 
+
     // The grid position is the source of truth; the on-screen pixel position is derived from it.
     setGridPosition(gridX: number, gridY: number): void {
         this.gridX = gridX;
@@ -28,12 +30,17 @@ export class PlayerCharacter extends Phaser.GameObjects.Sprite {
     }
 
     moveOnGrid(deltaGridX: number, deltaGridY: number): void {
-        this.setGridPosition(this.gridX + deltaGridX, this.gridY + deltaGridY);
+        // ensure to player is clamped within the tile space
+        const potentialMovePosition = new Phaser.Math.Vector2(this.gridX + deltaGridX, this.gridY + deltaGridY);
+        if (potentialMovePosition.x >= GRID_SIZE_X || potentialMovePosition.y >= GRID_SIZE_Y || potentialMovePosition .x <= 0.2 || potentialMovePosition.y <= 0.2) {
+            return;
+        }
+        this.setGridPosition(potentialMovePosition.x, potentialMovePosition.y);
     }
 
     // The whole-number index of the tile the player is standing on.
-    getTileIndex() : Point {
-        return { x: Math.floor(this.gridX), y: Math.floor(this.gridY) };
+    getTileIndex() : Phaser.Math.Vector2 {
+        return new Phaser.Math.Vector2(Math.floor(this.gridX), Math.floor(this.gridY));
     }
 
     protected preUpdate(time: number, delta: number): void {

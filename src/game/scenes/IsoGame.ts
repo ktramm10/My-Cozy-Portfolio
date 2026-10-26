@@ -42,7 +42,7 @@ export class IsoGame extends Scene
 
     create () {
         this.createMap();
-        this.playerCharacter = new PlayerCharacter("pc", this, 5, 5, "player", 0);
+        this.playerCharacter = new PlayerCharacter("pc", this, 5, 5, "player_idle", 0);
         this.playerCharacter.setScale(.2, .2)
         this.playerCharacter.setOrigin(.5, 1);
 
@@ -85,20 +85,53 @@ export class IsoGame extends Scene
 
 
     update(time: number, delta: number): void {
+        this.playerCharacter.setDepth(this.playerCharacter.y);
         const direction = this.getGridDirectionFromInput();
         const distance = this.playerSpeed * (delta / 1000); // tiles to move this frame
+        if (direction.x == -1 && direction.y == 0) { // w movement
+            this.playerCharacter.anims.play("run_up_left_right", true);
+            this.playerCharacter.flipX = true;
+        }
+        else if (direction.x == 1 && direction.y == 0) { // s movement
+            this.playerCharacter.anims.play("run_down_left_right", true);
+            this.playerCharacter.flipX = false;
+        }
+        else if (direction.x == 0 && direction.y == 1) { // d movement
+            this.playerCharacter.anims.play("run_down_left_right", true);
+            this.playerCharacter.flipX = true;
+        } 
+        else if (direction.x == 0 && direction.y == -1) { // a movement
+            this.playerCharacter.anims.play("run_up_left_right", true);
+            this.playerCharacter.flipX = false;
+        }
+        else if (direction.x < 0 && direction.y > 0) { // w + d movement --> right
+            this.playerCharacter.anims.play("run_left_right", true);
+            this.playerCharacter.flipX = true;
+        }
+        else if (direction.x < 0 && direction.y < 0) { // w + a movement --> up
+            this.playerCharacter.anims.play("run_up", true);
+            this.playerCharacter.flipX = false;
+        }
+        else if (direction.x > 0 && direction.y > 0) { // s + d movement --> down
+            this.playerCharacter.anims.play("run_down", true);
+            this.playerCharacter.flipX = false;
+        }
+        else if (direction.x > 0 && direction.y < 0) { // s + a movement --> left
+            this.playerCharacter.anims.play("run_left_right", true);
+            this.playerCharacter.flipX = false;
+        }
+        else if (direction.x == 0 && direction.y == 0) {
+            if (this.playerCharacter.anims.currentAnim?.key !== "idle") {
+            this.playerCharacter.anims.play("idle");
+            }
+        }
 
         this.playerCharacter.moveOnGrid(direction.x * distance, direction.y * distance);
 
         this.checkProjectZones();
     }
 
-    // Turns WASD into a direction on the isometric grid (x = gridX, y = gridY), not on the screen.
-    // Each key follows one grid axis, which on screen is a 2:1 diagonal:
-    //   W: gridX - 1  ->  up-right   (+2 right, -1 up)
-    //   S: gridX + 1  ->  down-left
-    //   A: gridY - 1  ->  up-left
-    //   D: gridY + 1  ->  down-right
+    
     private getGridDirectionFromInput(): Phaser.Math.Vector2 {
         const direction = new Phaser.Math.Vector2(0, 0);
 
@@ -107,8 +140,7 @@ export class IsoGame extends Scene
         if (this.keys.A.isDown) direction.y -= 1;
         if (this.keys.D.isDown) direction.y += 1;
 
-        // Keeps diagonal movement (e.g. W + D) from being faster than a single key.
-        // Phaser's normalize() leaves a zero vector alone, so no key pressed is safe.
+        
         return direction.normalize();
     }
 
