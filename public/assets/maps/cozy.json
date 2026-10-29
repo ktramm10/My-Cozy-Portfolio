@@ -4,25 +4,31 @@
  "layers":[
         {
          "data":[2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
-            2993, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1956,
-            2993, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1956,
-            2993, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1956,
-            2993, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1956,
-            2993, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1956,
-            2993, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1956,
-            2993, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1956,
-            2993, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1956,
-            2993, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1956,
-            2993, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1956,
-            2993, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1956,
-            2993, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1956,
-            2993, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1956,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1956,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2993],
+            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
+            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
+            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
+            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
+            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
+            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
+            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
+            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
+            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
+            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
+            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
+            2993, 2993, 2993, 2993, 2993, 2993, 3916, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
+            2993, 2993, 2993, 2993, 2993, 2993, 2993, 3916, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
+            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
+            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993],
          "height":16,
          "id":2,
          "name":"water",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"blocked",
+                 "type":"bool",
+                 "value":true
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":16,
@@ -31,21 +37,21 @@
         }, 
         {
          "data":[930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 0,
-            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 2993,
-            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 2993,
-            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 2993,
-            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 2993,
-            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 2993,
-            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 2993,
-            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 2993,
-            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 2993,
-            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 2993,
-            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 2993,
-            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 2993,
-            962, 962, 962, 962, 962, 962, 962, 962, 962, 962, 962, 962, 962, 1091, 0, 2993,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2993,
-            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993,
-            2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993, 2993],
+            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 0,
+            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 0,
+            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 0,
+            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 0,
+            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 0,
+            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 0,
+            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 0,
+            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 0,
+            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 0,
+            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 0,
+            930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 930, 1059, 0, 0,
+            962, 962, 962, 962, 962, 962, 962, 962, 962, 962, 962, 962, 962, 1091, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":16,
          "id":1,
          "name":"ground",
@@ -104,9 +110,78 @@
          "id":4,
          "name":"trees",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"blocked",
+                 "type":"bool",
+                 "value":true
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":16,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":9,
+         "name":"tree_objects",
+         "objects":[
+                {
+                 "height":0,
+                 "id":27,
+                 "name":"tree_1",
+                 "opacity":1,
+                 "point":true,
+                 "rotation":0,
+                 "type":"tree",
+                 "visible":true,
+                 "width":0,
+                 "x":182.166666666667,
+                 "y":181.833333333333
+                }, 
+                {
+                 "height":0,
+                 "id":28,
+                 "name":"tree_2",
+                 "opacity":1,
+                 "point":true,
+                 "rotation":0,
+                 "type":"tree",
+                 "visible":true,
+                 "width":0,
+                 "x":70.1666666666667,
+                 "y":150.5
+                }, 
+                {
+                 "height":0,
+                 "id":29,
+                 "name":"tree_3",
+                 "opacity":1,
+                 "point":true,
+                 "rotation":0,
+                 "type":"tree",
+                 "visible":true,
+                 "width":0,
+                 "x":104.5,
+                 "y":39.5
+                }, 
+                {
+                 "height":0,
+                 "id":38,
+                 "name":"tree_4",
+                 "opacity":1,
+                 "point":true,
+                 "rotation":0,
+                 "type":"tree",
+                 "visible":true,
+                 "width":0,
+                 "x":213.166666666667,
+                 "y":117.5
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -122,8 +197,8 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 3916, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -148,12 +223,18 @@
                  "name":"game_engine",
                  "opacity":1,
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"projectId",
+                         "type":"string",
+                         "value":"game-engine"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":197.666666666667,
-                 "y":21.6666666666667
+                 "x":197.667,
+                 "y":21.6667
                 }, 
                 {
                  "height":0,
@@ -161,12 +242,18 @@
                  "name":"course_website",
                  "opacity":1,
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"projectId",
+                         "type":"string",
+                         "value":"course-website"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":86.1666666666667,
-                 "y":197.166666666667
+                 "x":87.6667,
+                 "y":183.667
                 }, 
                 {
                  "height":0,
@@ -178,8 +265,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":4.83333333333333,
-                 "y":85.1666666666667
+                 "x":4.83333,
+                 "y":85.1667
                 }, 
                 {
                  "height":0,
@@ -191,8 +278,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":37.3333333333333,
-                 "y":4.66666666666669
+                 "x":37.3333,
+                 "y":4.66667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -200,8 +287,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":9,
- "nextobjectid":5,
+ "nextlayerid":12,
+ "nextobjectid":40,
  "orientation":"isometric",
  "renderorder":"right-down",
  "tiledversion":"1.12.2",
@@ -210,7 +297,7 @@
         {
          "columns":32,
          "firstgid":1,
-         "image":"..\/..\/..\/..\/..\/..\/Desktop\/Cozy Portfolio Textures\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/ground (Autotile)\/complete tile overworld normal.png",
+         "image":"Cozy Portfolio Textures\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/ground (Autotile)\/complete tile overworld normal.png",
          "imageheight":1536,
          "imagewidth":1040,
          "margin":0,
@@ -223,12 +310,130 @@
              "x":0,
              "y":16
             },
+         "tiles":[
+                {
+                 "id":1319,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1320,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1348,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1350,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1352,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1378,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1379,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1380,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1381,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1382,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1383,
+                 "properties":[
+                        {
+                         "name":"renderFront",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1410,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1413,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }],
          "tilewidth":32
         }, 
         {
          "columns":52,
          "firstgid":1537,
-         "image":"..\/..\/..\/..\/..\/..\/Desktop\/Cozy Portfolio Textures\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/Water\/all animated waters.png",
+         "image":"Cozy Portfolio Textures\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/Water\/all animated waters.png",
          "imageheight":1312,
          "imagewidth":1664,
          "margin":0,
@@ -237,6 +442,26 @@
          "tilecount":2132,
          "tileheight":32,
          "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":250,
+                         "tileid":728
+                        }, 
+                        {
+                         "duration":250,
+                         "tileid":729
+                        }, 
+                        {
+                         "duration":250,
+                         "tileid":730
+                        }, 
+                        {
+                         "duration":250,
+                         "tileid":731
+                        }],
+                 "id":728
+                }, 
                 {
                  "animation":[
                         {
@@ -255,14 +480,47 @@
                          "duration":250,
                          "tileid":1459
                         }],
-                 "id":1456
+                 "id":1456,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1457,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1458,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1459,
+                 "properties":[
+                        {
+                         "name":"blocked",
+                         "type":"bool",
+                         "value":true
+                        }]
                 }],
          "tilewidth":32
         }, 
         {
          "columns":26,
          "firstgid":3669,
-         "image":"..\/..\/..\/..\/..\/..\/Desktop\/Cozy Portfolio Textures\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/trees\/green trees normal.png",
+         "image":"Cozy Portfolio Textures\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/trees\/green trees normal.png",
          "imageheight":128,
          "imagewidth":832,
          "margin":0,
@@ -275,7 +533,7 @@
         {
          "columns":10,
          "firstgid":3773,
-         "image":"..\/..\/..\/..\/..\/..\/Desktop\/Cozy Portfolio Textures\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/Houses and buildings\/fence and ladder.png",
+         "image":"Cozy Portfolio Textures\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/COZY ISOMETRIC EXTERIOR v2.0\/Houses and buildings\/fence and ladder.png",
          "imageheight":128,
          "imagewidth":320,
          "margin":0,
@@ -288,7 +546,7 @@
         {
          "columns":16,
          "firstgid":3853,
-         "image":"..\/..\/..\/..\/..\/..\/..\/Downloads\/magetower_split\/magetower_tiles_32x32_spacing2.png",
+         "image":"..\/..\/Downloads\/magetower_split\/magetower_tiles_32x32_spacing2.png",
          "imageheight":308,
          "imagewidth":546,
          "margin":2,
@@ -301,7 +559,7 @@
         {
          "columns":1,
          "firstgid":3997,
-         "image":"..\/..\/..\/..\/..\/..\/..\/Downloads\/magetower_split\/large_objects\/object_084.png",
+         "image":"..\/..\/Downloads\/magetower_split\/large_objects\/object_084.png",
          "imageheight":32,
          "imagewidth":49,
          "margin":0,

@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     color: rgba(255, 255, 255, 0.87);
-    background-color: #000000; 
+    background-color: #000000;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -15,12 +15,88 @@ body {
     align-items: center;
 }
 
+/* Fills the browser window. The overlay is positioned against this, so it's centred on the page. */
 .game-container {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;   /* on mobile, excludes the browser's address bar (older browsers use the line above) */
+    overflow: hidden;
+
+    /* Stack header, game and footer vertically; the game takes whatever height is left over. */
+    display: flex;
+    flex-direction: column;
+
+    /* Wooden-plank wallpaper around the canvas where its 16:9 shape doesn't match the window.
+       The tile is 32 art pixels, shown at 2x like the map; the gradient darkens the edges so the
+       game stays the focus. */
+    background:
+        radial-gradient(ellipse at center, transparent 50%, rgba(20, 10, 5, 0.25) 100%),
+        url("/assets/ui/wood-planks.svg") 0 0 / calc(var(--px) * 32) repeat,
+        var(--ui-backdrop);
+    image-rendering: pixelated;
 }
 
+/* A pixel outline around the game canvas, so it sits on the planks like a framed picture */
+#game-container canvas {
+    box-shadow: var(--pixel-outline);
+}
+
+/* The game and the sidebar, side by side */
+.game-main {
+    flex: 1;
+    min-height: 0;   /* lets it shrink to fit instead of pushing the footer off-screen */
+    display: flex;
+}
+
+/* Phaser's parent element. Phaser sizes and centres the canvas inside it (scale config in game/main.ts). */
+#game-container {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+}
+
+/* ------------------------------------------------------------------------------------------------
+   Pixel-art UI theme
+   Colours are picked from the map art: wood/dirt browns, grass greens, and the zone markers' pink.
+   --px is one "art pixel" on screen (the map is drawn at 2x), so every border and shadow is a
+   multiple of it and the UI lines up with the world's pixel grid.
+   ------------------------------------------------------------------------------------------------ */
+:root {
+    --px: 2px;
+
+    --ui-outline: #2b1a12;          /* darkest brown, outlines everything */
+    --ui-wood-dark: #5c3620;
+    --ui-wood: #8a5530;             /* matches the dirt sides of the grass block */
+    --ui-wood-light: #b57843;
+    --ui-parchment: #f3e6c4;
+    --ui-parchment-shade: #dcc796;
+    --ui-ink: #3b2418;              /* text on parchment */
+    --ui-grass-dark: #2f6b34;
+    --ui-grass: #4f9a4a;            /* matches the grass tiles */
+    --ui-grass-light: #78c35f;
+    --ui-zone-pink: #ff5aa8;        /* matches the zone markers */
+    --ui-backdrop: #1f140d;         /* very dark soil, behind the canvas */
+}
+
+/* Declared here rather than on :root because next/font sets --font-pixel on <main> (pages/index.tsx),
+   and a variable can only use variables that exist where it is declared. */
+.game-container {
+    --font-ui: var(--font-pixel), "Courier New", monospace;
+}
+
+/* A 2-art-pixel outline with the corner pixels cut off, the classic pixel-art box shape.
+   Usage: box-shadow: var(--pixel-outline), <any other shadows>; */
+:root {
+    --pixel-outline:
+        0 calc(var(--px) * -2) 0 0 var(--ui-outline),
+        0 calc(var(--px) * 2) 0 0 var(--ui-outline),
+        calc(var(--px) * -2) 0 0 0 var(--ui-outline),
+        calc(var(--px) * 2) 0 0 0 var(--ui-outline);
+}
+
+
+/* ---- Project panel: a parchment notice in a wooden frame ---------------------------------------- */
 .project-overlay {
     position: absolute;
     top: 50%;
@@ -34,47 +110,207 @@ body {
     max-height: 80%;
     overflow-y: auto;
     box-sizing: border-box;
-    padding: 28px 32px;
+    padding: 36px 32px 20px;
 
-    background: rgba(20, 25, 30, 0.95);
-    color: white;
+    font-family: var(--font-ui);
+    color: var(--ui-ink);
     line-height: 1.5;
 
-    border: 1px solid #444;
-    border-radius: 12px;
+    background: var(--ui-parchment);
+    border: calc(var(--px) * 4) solid var(--ui-wood);   /* the wooden frame */
+    box-shadow:
+        var(--pixel-outline),
+        inset 0 0 0 var(--px) var(--ui-wood-dark),                            /* frame's inner edge */
+        inset calc(var(--px) * 3) calc(var(--px) * 3) 0 0 var(--ui-parchment-shade), /* paper shading */
+        calc(var(--px) * 4) calc(var(--px) * 4) 0 calc(var(--px) * 2) rgba(20, 10, 5, 0.35); /* hard drop shadow */
 
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-
-    animation: popup-appear 0.2s ease-out;
+    animation: popup-appear 0.2s steps(4, end);
 }
 
+/* The title sits on a wooden plaque. */
 .project-overlay h2 {
-    margin: 0 0 12px;
-    font-size: 24px;
+    display: inline-block;
+    margin: 0 0 16px;
+    padding: 6px 14px;
+
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ui-parchment);
+    text-shadow: var(--px) var(--px) 0 var(--ui-outline);
+
+    background: var(--ui-wood);
+    box-shadow:
+        var(--pixel-outline),
+        inset calc(var(--px) * -1) calc(var(--px) * -2) 0 0 var(--ui-wood-dark),  /* bevel: darker bottom-right */
+        inset var(--px) var(--px) 0 0 var(--ui-wood-light);                      /* bevel: lighter top-left */
 }
 
 .project-overlay p {
     margin: 0;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+}
+
+/* "View on GitHub" and the footer links: a grass-green pixel button. */
+.project-overlay a,
+.portfolio-footer-container a {
+    display: inline-block;
+    padding: 8px 16px 10px;
+
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: none;
+    text-shadow: var(--px) var(--px) 0 var(--ui-grass-dark);
+
+    background: var(--ui-grass);
+    box-shadow:
+        var(--pixel-outline),
+        inset calc(var(--px) * -2) calc(var(--px) * -2) 0 0 var(--ui-grass-dark),
+        inset var(--px) var(--px) 0 0 var(--ui-grass-light);
 }
 
 .project-overlay a {
-    display: inline-block;
     margin-top: 20px;
+}
+
+.project-overlay a:hover,
+.portfolio-footer-container a:hover {
+    background: var(--ui-grass-light);
+}
+
+/* Pressed: the button sinks one pixel and its bevel flips. */
+.project-overlay a:active,
+.portfolio-footer-container a:active {
+    transform: translate(var(--px), var(--px));
+    box-shadow:
+        var(--pixel-outline),
+        inset var(--px) var(--px) 0 0 var(--ui-grass-dark);
+}
+
+.project-overlay a:focus-visible,
+.portfolio-footer-container a:focus-visible {
+    outline: calc(var(--px) * 2) dashed var(--ui-zone-pink);
+    outline-offset: calc(var(--px) * 4);
+}
+
+
+/* ---- Header and footer: wooden planks across the top and bottom of the page --------------------- */
+.portfolio-header-container,
+.portfolio-footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 10px 16px;
 
-    background: #2d6a4f;
-    color: white;
-
-    border-radius: 6px;
-    text-decoration: none;
+    font-family: var(--font-ui);
+    background: var(--ui-wood);
 }
 
-.project-overlay a:hover {
-    background: #40916c;
+.portfolio-header-container {
+    box-shadow:
+        inset 0 var(--px) 0 0 var(--ui-wood-light),                     /* lit top edge */
+        inset 0 calc(var(--px) * -2) 0 0 var(--ui-wood-dark),           /* shaded bottom edge */
+        0 calc(var(--px) * 2) 0 0 var(--ui-outline);                    /* outline under the plank */
+    position: relative;
+    z-index: 1;   /* keeps the outline drawn over the game area below */
 }
 
-/* "Press E" prompt, centred over the game while the player stands on a project tile */
+.portfolio-footer-container {
+    box-shadow:
+        inset 0 calc(var(--px) * 2) 0 0 var(--ui-wood-light),
+        inset 0 calc(var(--px) * -1) 0 0 var(--ui-wood-dark),
+        0 calc(var(--px) * -2) 0 0 var(--ui-outline);
+    position: relative;
+    z-index: 1;
+}
+
+.portfolio-header-container h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ui-parchment);
+    text-shadow:
+        var(--px) var(--px) 0 var(--ui-outline),
+        calc(var(--px) * 2) calc(var(--px) * 2) 0 var(--ui-wood-dark);
+    text-align: center;
+}
+
+.portfolio-footer-container address {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    font-style: normal;   /* <address> is italic by default */
+}
+
+.portfolio-footer-container a {
+    font-size: 14px;
+    padding: 6px 12px 8px;
+}
+
+
+/* ---- Sidebar: a parchment panel in a wooden frame, like the project panel ----------------------- */
+.side-bar-container {
+    flex: 0 0 220px;
+    margin: 12px;
+    padding: 16px;
+    overflow-y: auto;
+    box-sizing: border-box;
+
+    font-family: var(--font-ui);
+    font-size: 15px;
+    color: var(--ui-ink);
+
+    background: var(--ui-parchment);
+    border: calc(var(--px) * 3) solid var(--ui-wood);
+    box-shadow:
+        var(--pixel-outline),
+        inset 0 0 0 var(--px) var(--ui-wood-dark),
+        inset calc(var(--px) * 3) calc(var(--px) * 3) 0 0 var(--ui-parchment-shade);
+}
+
+.side-bar-container p {
+    margin: 0;
+}
+
+
+/* ---- Small screens: sidebar moves under the game, everything gets a bit tighter ----------------- */
+@media (max-width: 720px) {
+    .game-main {
+        flex-direction: column;
+    }
+
+    .side-bar-container {
+        flex: 0 0 auto;
+        max-height: 25%;
+        margin: 8px 12px;
+    }
+
+    .portfolio-header-container {
+        padding: 8px 12px;
+    }
+
+    .portfolio-header-container h2 {
+        font-size: 20px;
+    }
+
+    .portfolio-footer-container {
+        padding: 8px 12px;
+    }
+
+    .portfolio-footer-container address {
+        gap: 10px;
+    }
+}
+
+.project-overlay .overlay-hint {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--ui-wood);
+}
+
+
+/* ---- "Press E" prompt, centred over the game while the player stands on a project tile ---------- */
 .popup_interaction {
     position: absolute;
     top: 50%;
@@ -83,33 +319,57 @@ body {
 
     z-index: 10;
 
-    padding: 6px 14px;
+    padding: 6px 12px;
 
-    background: rgba(20, 25, 30, 0.75);
-    border: 1px solid #2d6a4f;
-    border-radius: 999px; /* pill shape */
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    background: var(--ui-wood);
+    box-shadow:
+        var(--pixel-outline),
+        inset calc(var(--px) * -1) calc(var(--px) * -2) 0 0 var(--ui-wood-dark),
+        inset var(--px) var(--px) 0 0 var(--ui-wood-light),
+        calc(var(--px) * 2) calc(var(--px) * 3) 0 var(--px) rgba(20, 10, 5, 0.35);
 
     /* Let mouse clicks pass through to the game underneath */
     pointer-events: none;
 
     animation:
-        popup-appear 0.2s ease-out,
-        popup-pulse 1.6s ease-in-out 0.2s infinite;
+        popup-appear 0.2s steps(4, end),
+        popup-bob 1.2s steps(2, jump-none) 0.2s infinite;
 }
 
 .popup_interaction_text {
     margin: 0;
 
-    color: white;
-    font-size: 14px;
+    font-family: var(--font-ui);
+    font-size: 15px;
     font-weight: 600;
-    letter-spacing: 0.3px;
+    color: var(--ui-parchment);
+    text-shadow: var(--px) var(--px) 0 var(--ui-outline);
     white-space: nowrap;
 }
 
-/* Grows in from slightly smaller when the prompt first shows up */
+/* The "E" drawn as a little keyboard key. */
+.key_cap {
+    display: inline-block;
+    margin: 0 4px;
+    padding: 0 6px 2px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ui-ink);
+    text-shadow: none;
+
+    background: var(--ui-parchment);
+    box-shadow:
+        var(--pixel-outline),
+        inset 0 calc(var(--px) * -2) 0 0 var(--ui-parchment-shade);  /* the key's front edge */
+}
+
+
+/* ---- Animations --------------------------------------------------------------------------------- */
+/* Animations use steps() so they move in whole frames, like the sprites, rather than gliding. */
+
+/* Pops in from slightly smaller when it first shows up */
 @keyframes popup-appear {
     from {
         opacity: 0;
@@ -121,13 +381,13 @@ body {
     }
 }
 
-/* Gentle glow so the prompt catches the eye without moving around */
-@keyframes popup-pulse {
-    0%, 100% {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 0 0 0 rgba(64, 145, 108, 0.5);
+/* The prompt bobs up and down by one art pixel to catch the eye */
+@keyframes popup-bob {
+    from {
+        transform: translate(-50%, -50%);
     }
-    50% {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 0 0 4px rgba(64, 145, 108, 0);
+    to {
+        transform: translate(-50%, calc(-50% - var(--px) * 2));
     }
 }
 

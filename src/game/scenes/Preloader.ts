@@ -1,4 +1,8 @@
 import { Scene } from 'phaser';
+import { TILESETS, TileSetImportTemplate } from '../textures/tilesets';
+
+export const PLAYER_SHEET = 'player';
+const PLAYER_FRAMES_PER_ROW = 8;
 
 export class Preloader extends Scene
 {
@@ -16,55 +20,35 @@ export class Preloader extends Scene
     {
         //  Load the assets for the game - Replace with your own assets
         this.load.setPath('assets');
-        this.load.image('grass', 'grass.png');
-        this.load.image('sand', 'sand.png');
-        this.load.image('water', 'water.png');
 
-        this.load.spritesheet("player_idle", "CharacterSprite/Character0_Idle.png", {frameWidth: 460, frameHeight: 460});
-        this.load.spritesheet("player_run", "CharacterSprite/Character0_Run.png", {frameWidth: 460, frameHeight: 460});
+        this.load.tilemapTiledJSON('cozy_map', 'maps/cozy.json');
+
+        for (const t of TILESETS) {
+            this.load.image(t.key, t.file);
+            this.load.spritesheet(`${t.key}-sheet`, t.file, {frameWidth: t.tileWidth, frameHeight: t.tileHeight, spacing: t.spacing, margin: t.margin});
+        }
+
+        this.load.spritesheet(PLAYER_SHEET, 'character_sprite/AdventurerWalk64x64.png', {frameWidth: 64, frameHeight: 64});
     }
 
     create ()
     {
-        // Animations are created here, not in preload(): the spritesheets only exist once loading
-        // has finished, and generateFrameNumbers() on a missing texture returns no frames.
+        this.createRowAnimation("run_down_left_right", 0);
+        this.createRowAnimation("run_left_right", 1);
+        this.createRowAnimation("run_up_left_right", 2);
+        this.createRowAnimation("run_up", 3);
+        this.createRowAnimation("run_down", 7);
+
+        this.scene.start('IsoGame');
+    }
+
+    private createRowAnimation(key: string, row: number): void {
+        const start = row * PLAYER_FRAMES_PER_ROW;
         this.anims.create({
-            key: "idle",
-            frames: this.anims.generateFrameNumbers('player_idle', {start: 0, end: 7}),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: "run_down_left_right",
-            frames: this.anims.generateFrameNumbers("player_run", {start: 4, end: 7}),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: "run_up_left_right",
-            frames: this.anims.generateFrameNumbers("player_run", {start: 12, end: 15}),
+            key,
+            frames: this.anims.generateFrameNumbers(PLAYER_SHEET, { start, end: start + PLAYER_FRAMES_PER_ROW - 1 }),
             frameRate: 10,
             repeat: -1,
         });
-        this.anims.create({
-            key: "run_down",
-            frames: this.anims.generateFrameNumbers("player_run",{start: 0, end: 3}),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: "run_up",
-            frames: this.anims.generateFrameNumbers("player_run", {start: 16, end: 19}),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: "run_left_right",
-            frames: this.anims.generateFrameNumbers("player_run", {start: 8, end: 11}),
-            frameRate: 10,
-            repeat: -1
-        });
-        //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
-        this.scene.start('IsoGame');
     }
 }

@@ -34,7 +34,9 @@ export default function ProjectOverlay() {
     if (!activateOverlay) {
         return (
             <div className="popup_interaction">
-                <p className="popup_interaction_text">Press E to view project.</p>
+                <p className="popup_interaction_text">
+                    Press <kbd className="key_cap">E</kbd> to view project
+                </p>
             </div>
 
         );
@@ -42,7 +44,7 @@ export default function ProjectOverlay() {
 
     return (
         <div className="project-overlay">
-            
+
             <h2>{activeProject.name}</h2>
 
             <p>{activeProject.description}</p>
@@ -54,6 +56,8 @@ export default function ProjectOverlay() {
             >
                 View on GitHub
             </a>
+
+            <p className="overlay-hint">Walk away to close</p>
         </div>
     );
 }
