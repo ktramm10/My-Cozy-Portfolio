@@ -40,11 +40,13 @@ export class IsoGame extends Scene
         return onGround && !this.blockedTiles.has(tileKey(row, col));
     }
 
-    private readonly playerSpeed = 4; // tiles per second
+    private readonly playerSpeed = 3; // tiles per second
     private playerCharacter! : PlayerCharacter;
     private keys! : Controls;
     private activeZoneId: string | null = null;
     private zoneAreas: ZoneArea[] = [];
+
+    private backgroundMusic!: Phaser.Sound.WebAudioSound | Phaser.Sound.HTML5AudioSound;
 
 
     constructor ()
@@ -53,11 +55,16 @@ export class IsoGame extends Scene
     }
 
     create () {
+        const startVolume = this.registry.get('musicVolume') ?? 0.5;
+        this.backgroundMusic = this.sound.add('background-music', {loop: true, volume: startVolume}) as any;
+        this.backgroundMusic.play();
+        EventBus.on('set-music-volume', this.setMusicVolume, this);
+
         this.createMap();
         this.loadZoneAreas();
         this.createProps();
 
-        this.playerCharacter = new PlayerCharacter("pc", this, 5, 5, PLAYER_SHEET, 0);
+        this.playerCharacter = new PlayerCharacter("pc", this, 29 , 29, PLAYER_SHEET, 0);
         this.playerCharacter.setOrigin(.5, 50 / 64);
 
         this.keys = {
@@ -69,6 +76,18 @@ export class IsoGame extends Scene
         };
 
         this.setupCamera();
+
+
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            EventBus.off('set-music-volume', this.setMusicVolume, this);
+        });
+
+        EventBus.emit('current-scene-ready', this);
+    }
+
+    private setMusicVolume(value: number) {
+        this.registry.set('musicVolume', value);
+        this.backgroundMusic.setVolume(value);
     }
 
     private loadZoneAreas(): void {

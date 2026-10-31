@@ -11,9 +11,11 @@ export class Preloader extends Scene
         super('Preloader');
     }
 
-    init ()
-    {
-
+    init () {
+        const { width, height } = this.scale;
+        this.add.rectangle(width / 2, height / 2, 300, 20).setStrokeStyle(2, 0xf3e6c4);
+        const bar = this.add.rectangle(width / 2 - 148, height / 2, 4, 16, 0xf3e6c4).setOrigin(0, 0.5);
+        this.load.on('progress', (p: number) => { bar.width = 4 + 292 * p; });
     }
 
     preload ()
@@ -29,6 +31,8 @@ export class Preloader extends Scene
         }
 
         this.load.spritesheet(PLAYER_SHEET, 'character_sprite/AdventurerWalk64x64.png', {frameWidth: 64, frameHeight: 64});
+
+        this.load.audio('background-music', 'music/Sunlight Through Leaves.ogg');
     }
 
     create ()

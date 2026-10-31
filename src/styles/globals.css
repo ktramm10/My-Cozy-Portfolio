@@ -105,8 +105,8 @@ body {
 
     z-index: 10;
 
-    /* 480px on large screens, but never wider than 90% of the game area */
-    width: min(480px, 90%);
+    /* 640px on large screens (room for the screenshots), but never wider than 90% of the game area */
+    width: min(640px, 90%);
     max-height: 80%;
     overflow-y: auto;
     box-sizing: border-box;
@@ -235,6 +235,55 @@ body {
     text-align: center;
 }
 
+/* Music volume: pinned to the right end of the header plank so the title stays centred */
+.volume-slider {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.volume-slider input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 110px;
+    height: calc(var(--px) * 4);
+    margin: 0;
+    background: var(--ui-wood-dark);
+    box-shadow: 0 0 0 var(--px) var(--ui-outline);
+    cursor: pointer;
+}
+
+.volume-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: calc(var(--px) * 6);
+    height: calc(var(--px) * 10);
+    background: var(--ui-parchment);
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 0 var(--px) var(--ui-outline);
+}
+
+.volume-slider input[type="range"]::-moz-range-thumb {
+    width: calc(var(--px) * 6);
+    height: calc(var(--px) * 10);
+    background: var(--ui-parchment);
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 0 var(--px) var(--ui-outline);
+}
+
+.volume-slider input[type="range"]:focus-visible {
+    outline: calc(var(--px) * 2) dashed var(--ui-zone-pink);
+    outline-offset: calc(var(--px) * 3);
+}
+
 .portfolio-footer-container address {
     display: flex;
     flex-wrap: wrap;
@@ -251,14 +300,19 @@ body {
 
 /* ---- Sidebar: a parchment panel in a wooden frame, like the project panel ----------------------- */
 .side-bar-container {
-    flex: 0 0 220px;
+    flex: 0 0 290px;
     margin: 12px;
-    padding: 16px;
+    padding: 16px 18px;
     overflow-y: auto;
     box-sizing: border-box;
 
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
     font-family: var(--font-ui);
     font-size: 15px;
+    line-height: 1.4;
     color: var(--ui-ink);
 
     background: var(--ui-parchment);
@@ -267,10 +321,341 @@ body {
         var(--pixel-outline),
         inset 0 0 0 var(--px) var(--ui-wood-dark),
         inset calc(var(--px) * 3) calc(var(--px) * 3) 0 0 var(--ui-parchment-shade);
+
+    scrollbar-color: var(--ui-wood) var(--ui-parchment-shade);
 }
 
 .side-bar-container p {
     margin: 0;
+}
+
+/* Sections keep their natural height and the panel scrolls, rather than everything squashing */
+.side-bar-container > * {
+    flex-shrink: 0;
+}
+
+/* Panel title on a wooden plaque, with a handle link beside it */
+.sidebar-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.sidebar-heading h2 {
+    margin: 0;
+    padding: 4px 12px 6px;
+
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ui-parchment);
+    text-shadow: var(--px) var(--px) 0 var(--ui-outline);
+
+    background: var(--ui-wood);
+    box-shadow:
+        var(--pixel-outline),
+        inset calc(var(--px) * -1) calc(var(--px) * -2) 0 0 var(--ui-wood-dark),
+        inset var(--px) var(--px) 0 0 var(--ui-wood-light);
+}
+
+.sidebar-heading a {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ui-wood-dark);
+    text-decoration: none;
+    border-bottom: var(--px) dashed var(--ui-wood-light);
+}
+
+.sidebar-heading a:hover {
+    color: var(--ui-grass-dark);
+    border-bottom-color: var(--ui-grass);
+}
+
+/* Same ledger-line label as the project overlay's section titles */
+.sidebar-section-title {
+    margin: 18px 0 10px;
+    padding-bottom: 4px;
+
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ui-wood-dark);
+
+    border-bottom: var(--px) dashed var(--ui-wood-light);
+}
+
+.gh-message {
+    padding: 12px;
+    text-align: center;
+    color: var(--ui-wood);
+}
+
+/* ---- GitHub stats --------------------------------------------------------------------------------- */
+
+/* The headline number: a grass-green banner so it's the first thing the eye lands on */
+.gh-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 8px 12px;
+
+    color: #ffffff;
+    text-shadow: var(--px) var(--px) 0 var(--ui-grass-dark);
+
+    background: var(--ui-grass);
+    box-shadow:
+        var(--pixel-outline),
+        inset calc(var(--px) * -2) calc(var(--px) * -2) 0 0 var(--ui-grass-dark),
+        inset var(--px) var(--px) 0 0 var(--ui-grass-light);
+}
+
+.gh-hero-value {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.gh-hero-label {
+    margin-top: 4px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Smaller supporting numbers, each on a wooden tile */
+.gh-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.gh-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 4px 8px;
+
+    color: var(--ui-parchment);
+    text-shadow: var(--px) var(--px) 0 var(--ui-outline);
+
+    background: var(--ui-wood);
+    box-shadow:
+        var(--pixel-outline),
+        inset calc(var(--px) * -1) calc(var(--px) * -2) 0 0 var(--ui-wood-dark),
+        inset var(--px) var(--px) 0 0 var(--ui-wood-light);
+}
+
+.gh-tile-value {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.gh-tile-label {
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Language bars: a sunken wooden track filled with grass */
+.gh-languages {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.gh-language-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.gh-language-bar {
+    height: calc(var(--px) * 4);
+    background: var(--ui-parchment-shade);
+    box-shadow: 0 0 0 var(--px) var(--ui-wood-dark);
+}
+
+.gh-language-bar > div {
+    height: 100%;
+    background: var(--ui-grass);
+    box-shadow: inset 0 calc(var(--px) * -1) 0 0 var(--ui-grass-dark);
+}
+
+/* Contribution heatmap: columns are weeks, cells are days. Columns are set inline from the week count. */
+.gh-activity {
+    display: grid;
+    gap: 2px;
+}
+
+.gh-activity-week {
+    display: grid;
+    grid-template-rows: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.gh-activity-day {
+    aspect-ratio: 1;
+    background: var(--ui-parchment-shade);
+}
+
+.gh-activity-day[data-level="1"] { background: #b5d98c; }
+.gh-activity-day[data-level="2"] { background: var(--ui-grass-light); }
+.gh-activity-day[data-level="3"] { background: var(--ui-grass); }
+.gh-activity-day[data-level="4"] { background: var(--ui-grass-dark); }
+
+.gh-activity-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3px;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--ui-wood);
+}
+
+.gh-activity-legend .gh-activity-day {
+    width: 10px;
+}
+
+.gh-activity-legend span {
+    margin: 0 3px;
+}
+
+/* ---- Skip the game: call-to-action and project list ----------------------------------------------- */
+.skip-game {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: var(--px) dashed var(--ui-wood-light);
+    font-size: 13px;
+    text-align: center;
+}
+
+/* Zone-pink so it reads as the panel's main action, distinct from the green links */
+.skip-game-button {
+    padding: 8px 16px 10px;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: var(--px) var(--px) 0 #a8326c;
+
+    background: var(--ui-zone-pink);
+    border: none;
+    cursor: pointer;
+    box-shadow:
+        var(--pixel-outline),
+        inset calc(var(--px) * -2) calc(var(--px) * -2) 0 0 #c43d80,
+        inset var(--px) var(--px) 0 0 #ff9cca;
+}
+
+.skip-game-button:hover {
+    background: #ff7dbb;
+}
+
+.skip-game-button:active {
+    transform: translate(var(--px), var(--px));
+    box-shadow:
+        var(--pixel-outline),
+        inset var(--px) var(--px) 0 0 #c43d80;
+}
+
+.skip-game-button:focus-visible,
+.project-item a:focus-visible,
+.sidebar-heading a:focus-visible {
+    outline: calc(var(--px) * 2) dashed var(--ui-grass-dark);
+    outline-offset: calc(var(--px) * 3);
+}
+
+.project-display {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: dropdown-open 0.15s steps(3, end);
+}
+
+.project-display .sidebar-section-title {
+    margin: 0;
+}
+
+/* Each project is a small card pinned to the parchment */
+.project-item {
+    padding: 10px 12px 12px;
+    background: #fbf3dc;
+    box-shadow:
+        0 0 0 var(--px) var(--ui-wood-light),
+        calc(var(--px) * 2) calc(var(--px) * 2) 0 0 var(--ui-parchment-shade);
+}
+
+.project-item h4 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    color: var(--ui-wood-dark);
+}
+
+.project-item p {
+    font-size: 13px;
+}
+
+.project-item-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.project-item-tech li {
+    padding: 1px 6px 2px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ui-parchment);
+    background: var(--ui-wood);
+    box-shadow: 0 0 0 var(--px) var(--ui-wood-dark);
+}
+
+.project-item a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 4px 10px 6px;
+
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: none;
+    text-shadow: var(--px) var(--px) 0 var(--ui-grass-dark);
+
+    background: var(--ui-grass);
+    box-shadow:
+        var(--pixel-outline),
+        inset calc(var(--px) * -2) calc(var(--px) * -2) 0 0 var(--ui-grass-dark),
+        inset var(--px) var(--px) 0 0 var(--ui-grass-light);
+}
+
+.project-item a:hover {
+    background: var(--ui-grass-light);
+}
+
+@keyframes dropdown-open {
+    from {
+        opacity: 0;
+        transform: translateY(calc(var(--px) * -4));
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 
@@ -294,6 +679,15 @@ body {
         font-size: 20px;
     }
 
+    .volume-slider {
+        right: 12px;
+        font-size: 16px;
+    }
+
+    .volume-slider input[type="range"] {
+        width: 60px;
+    }
+
     .portfolio-footer-container {
         padding: 8px 12px;
     }
@@ -307,6 +701,78 @@ body {
     margin-top: 16px;
     font-size: 13px;
     color: var(--ui-wood);
+}
+
+/* Section headings: small caps label with a dashed pixel rule underneath, like a ledger line */
+.overlay-section-title {
+    margin: 20px 0 10px;
+    padding-bottom: 4px;
+
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ui-wood-dark);
+
+    border-bottom: var(--px) dashed var(--ui-wood-light);
+}
+
+/* ---- Tech stack: each item is a small wooden tag ----------------------------------------------- */
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 4px;   /* keeps the tags' pixel outlines from being clipped by the panel's scroll area */
+    list-style: none;
+}
+
+.tech-tag {
+    padding: 4px 10px 6px;
+
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--ui-parchment);
+    text-shadow: var(--px) var(--px) 0 var(--ui-outline);
+
+    background: var(--ui-wood);
+    box-shadow:
+        var(--pixel-outline),
+        inset calc(var(--px) * -1) calc(var(--px) * -2) 0 0 var(--ui-wood-dark),
+        inset var(--px) var(--px) 0 0 var(--ui-wood-light);
+}
+
+/* ---- Screenshots: framed like little pictures hanging on the notice ----------------------------- */
+.screenshot-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    padding: 4px;
+}
+
+.screenshot-frame {
+    margin: 0;
+    padding: calc(var(--px) * 2);
+
+    background: var(--ui-wood);
+    box-shadow:
+        var(--pixel-outline),
+        inset var(--px) var(--px) 0 0 var(--ui-wood-light),
+        calc(var(--px) * 2) calc(var(--px) * 2) 0 0 rgba(20, 10, 5, 0.25);
+}
+
+.screenshot-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;   /* every thumbnail the same shape, whatever the screenshot's size */
+    object-fit: cover;
+    object-position: top;    /* show the top of tall screenshots, where titles and headers usually are */
+
+    background: var(--ui-backdrop);
+    /* .game-container sets pixelated rendering for the art; screenshots look better smoothly scaled */
+    image-rendering: auto;
 }
 
 
@@ -393,7 +859,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
     .popup_interaction,
-    .project-overlay {
+    .project-overlay,
+    .project-display {
         animation: none;
     }
 }

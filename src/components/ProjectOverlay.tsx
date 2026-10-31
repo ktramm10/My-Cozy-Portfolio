@@ -3,6 +3,7 @@
 import { useEffect, useState} from 'react';
 import { EventBus } from '@/game/EventBus';
 import type { ProjectZone } from '@/util/projectZones';
+import Image from 'next/image';
 
 export default function ProjectOverlay() {
     const [activeProject, setActiveProject] = useState<ProjectZone | null>(null);
@@ -48,6 +49,28 @@ export default function ProjectOverlay() {
             <h2>{activeProject.name}</h2>
 
             <p>{activeProject.description}</p>
+
+            <h3 className="overlay-section-title">Technology Stack</h3>
+            <ul className="tech-stack">
+                {activeProject.techStack.map((tech) => (
+                    <li key={tech} className="tech-tag">{tech}</li>
+                ))}
+            </ul>
+
+            <h3 className="overlay-section-title">Screenshots</h3>
+            <div className="screenshot-gallery">
+                {activeProject.imgURLS.map((item, index) =>  (
+                    <figure key={item} className="screenshot-frame">
+                        <Image
+                            src={item}
+                            alt={`${activeProject.name} screenshot ${index + 1}`}
+                            width={1200}
+                            height={800}
+                            className="screenshot-image"
+                        />
+                    </figure>
+                ))}
+            </div>
 
             <a
                 href={activeProject.githubUrl}
