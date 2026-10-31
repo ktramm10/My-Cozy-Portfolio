@@ -1,14 +1,20 @@
 'use client'
 import {useState} from 'react';
 import { projectZones} from '@/util/projectZones';
-import Link from 'next/link';
 import GitHubStats from './GitHubStats';
 
 // Tech tags shown per project card; the full list is in the in-game overlay
 const CARD_TECH_COUNT = 3;
 
+// Touch screens can't use the WASD/E controls. App is loaded client-only, so window is available here.
+function isTouchDevice() {
+    return window.matchMedia('(pointer: coarse)').matches;
+}
+
 export default function PortfolioSideBar() {
-    const [dropDownToggle, setDropDownToggle] = useState<boolean>(false);
+    const [isTouch] = useState<boolean>(isTouchDevice);
+    // On touch devices the project list starts open, since the game can't be played
+    const [dropDownToggle, setDropDownToggle] = useState<boolean>(isTouch);
 
     function activateDropDown() {
         setDropDownToggle(prev => !prev);
@@ -19,7 +25,11 @@ export default function PortfolioSideBar() {
             <GitHubStats />
 
             <div className='skip-game'>
-                <p>Want to skip the game and see the projects?</p>
+                {isTouch ? (
+                    <p className='touch-note'>The game needs a keyboard (WASD to move, E to open). Here are the projects instead:</p>
+                ) : (
+                    <p>Want to skip the game and see the projects?</p>
+                )}
                 <button
                     className='skip-game-button'
                     onClick={activateDropDown}
@@ -42,7 +52,7 @@ export default function PortfolioSideBar() {
                                     <li key={tech}>{tech}</li>
                                 ))}
                             </ul>
-                            <Link href={project.githubUrl} target='_blank' rel="noopener noreferrer">View on GitHub</Link>
+                            <a href={project.githubUrl} target='_blank' rel="noopener noreferrer">View on GitHub</a>
                         </article>
                     ))}
                 </div>

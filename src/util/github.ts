@@ -1,18 +1,9 @@
-// Server-only GitHub helpers. Types are safe to import from client components.
+// Server-only GitHub helpers. The browser imports shared values and types from ./githubTypes instead.
+import "server-only";
+import { GITHUB_USERNAME, type GitHubStats } from "./githubTypes";
+
 const GITHUB_GRAPHQL_URL = "https://api.github.com/graphql";
-export const GITHUB_USERNAME = "ktramm10";
 const TOP_LANGUAGE_COUNT = 5;
-
-type ContributionDay = { date: string; contributionCount: number };
-
-export type GitHubStats = {
-  repos: number;
-  stars: number;
-  followers: number;
-  contributions: number;
-  topLanguages: { name: string; count: number }[];
-  calendar: { contributionDays: ContributionDay[] }[];
-};
 
 type RepoNode = { stargazerCount: number; primaryLanguage: { name: string } | null };
 

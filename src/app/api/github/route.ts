@@ -1,13 +1,10 @@
 import { fetchGitHubStats } from "@/util/github";
 
-// Required by `output: 'export'`: the response is generated once at build time
-export const dynamic = "force-static";
+// Cached response, regenerated in the background at most once an hour
+export const revalidate = 3600;
 
+// Errors are thrown rather than caught: during revalidation Next keeps serving the last good
+// stats instead of caching an error. A failure at build time fails the build, so it gets noticed.
 export async function GET() {
-  try {
-    return Response.json(await fetchGitHubStats());
-  } catch (err) {
-    console.error(err);
-    return Response.json({ error: "Failed to load GitHub stats" }, { status: 500 });
-  }
+  return Response.json(await fetchGitHubStats());
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { GITHUB_USERNAME, type GitHubStats } from '@/util/github';
+import { GITHUB_USERNAME, isGitHubStats, type GitHubStats } from '@/util/githubTypes';
 
 const ACTIVITY_WEEKS = 20;
 
@@ -13,7 +13,10 @@ export default function GitHubStats() {
         fetch('/api/github').then((res) => {
             if (!res.ok) throw new Error('Request failed.');
             return res.json();
-        }).then((data: GitHubStats) => setStats(data)).catch(() => setError("Couldn't load GitHub stats."));
+        }).then((data: unknown) => {
+            if (!isGitHubStats(data)) throw new Error('Unexpected response.');
+            setStats(data);
+        }).catch(() => setError("Couldn't load GitHub stats."));
     }, []);
 
     if (error) return <p className="gh-message">{error}</p>;

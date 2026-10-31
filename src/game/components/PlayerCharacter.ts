@@ -40,10 +40,8 @@ export class PlayerCharacter extends Phaser.GameObjects.Sprite {
     }
 
     protected preUpdate(time: number, delta: number): void {
-        // Sprite's own preUpdate advances animations, so it must still run.
         super.preUpdate(time, delta);
 
-        // implement for animation
     }
 
 }

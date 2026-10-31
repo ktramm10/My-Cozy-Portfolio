@@ -20,7 +20,6 @@ export class Preloader extends Scene
 
     preload ()
     {
-        //  Load the assets for the game - Replace with your own assets
         this.load.setPath('assets');
 
         this.load.tilemapTiledJSON('cozy_map', 'maps/cozy.json');

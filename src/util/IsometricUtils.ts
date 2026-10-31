@@ -19,14 +19,14 @@ export function getIsoConfig(): IsoConfig {
     return iso;
 }
 
-// Same formula you already had, now reading from the config.
+
 export function getPixelPositionOfTile(x: number, y: number): Phaser.Math.Vector2 {
     const resX = (y - x) * (iso.tileWidth / 2) + iso.originX;
     const resY = (y + x) * (iso.tileHeight / 2) + iso.originY;
     return new Phaser.Math.Vector2(resX, resY);
 }
 
-// Inverse of getPixelPositionOfTile: returns the index of the tile the pixel is on.
+
 export function getTilePositionOfPixel(x: number, y: number): Phaser.Math.Vector2 {
     const a = (x - iso.originX) / (iso.tileWidth / 2);
     const b = (y - iso.originY) / (iso.tileHeight / 2);
@@ -36,8 +36,7 @@ export function getTilePositionOfPixel(x: number, y: number): Phaser.Math.Vector
     return new Phaser.Math.Vector2(gridX, gridY);
 }
 
-// Tiled stores isometric OBJECT positions in units of tileHeight on BOTH axes.
-// Note the swap: Tiled's y is your gridX (row), Tiled's x is your gridY (col).
+
 export function tiledObjectToGrid(objX: number, objY: number): { gridX: number; gridY: number } {
     return { gridX: objY / iso.tileHeight, gridY: objX / iso.tileHeight };
 }

@@ -12,8 +12,6 @@ const config: Phaser.Types.Core.GameConfig = {
     parent: 'game-container',
     backgroundColor: '#028af8',
     pixelArt: true,
-    // width/height above are the game's own resolution. FIT scales the canvas up or down to fit the
-    // page while keeping that shape, and CENTER_BOTH centres it horizontally and vertically.
     scale: {
         mode: Scale.FIT,
         autoCenter: Scale.CENTER_BOTH,

@@ -13,10 +13,10 @@ npm run dev
 
 Open [http://localhost:8080](http://localhost:8080). The Next.js app is in `src/pages`, the Phaser/React bridge is in `src/PhaserGame.tsx`, and game scenes are in `src/game/scenes`.
 
-Create a static production build with:
+Create a production build with:
 
 ```bash
 npm run build
 ```
 
-The build is written to `dist`.
+The GitHub stats in the sidebar need a `GITHUB_TOKEN` environment variable (a fine-grained token with no repository permissions is enough). Put it in `.env` locally, and in the project's environment variables when deploying.

@@ -224,7 +224,7 @@ body {
     z-index: 1;
 }
 
-.portfolio-header-container h2 {
+.portfolio-header-container h1 {
     margin: 0;
     font-size: 26px;
     font-weight: 700;
@@ -540,6 +540,15 @@ body {
     text-align: center;
 }
 
+/* Shown on touch screens in place of the "skip the game" prompt */
+.touch-note {
+    padding: 6px 8px;
+    font-weight: 600;
+    color: var(--ui-wood-dark);
+    background: var(--ui-parchment-shade);
+    box-shadow: 0 0 0 var(--px) var(--ui-wood-light);
+}
+
 /* Zone-pink so it reads as the panel's main action, distinct from the green links */
 .skip-game-button {
     padding: 8px 16px 10px;
@@ -675,7 +684,7 @@ body {
         padding: 8px 12px;
     }
 
-    .portfolio-header-container h2 {
+    .portfolio-header-container h1 {
         font-size: 20px;
     }
 

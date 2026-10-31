@@ -66,6 +66,7 @@ export default function ProjectOverlay() {
                             alt={`${activeProject.name} screenshot ${index + 1}`}
                             width={1200}
                             height={800}
+                            sizes="(max-width: 720px) 90vw, 320px"
                             className="screenshot-image"
                         />
                     </figure>
