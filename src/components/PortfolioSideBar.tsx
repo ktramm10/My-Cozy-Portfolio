@@ -6,15 +6,14 @@ import GitHubStats from './GitHubStats';
 // Tech tags shown per project card; the full list is in the in-game overlay
 const CARD_TECH_COUNT = 3;
 
-// Touch screens can't use the WASD/E controls. App is loaded client-only, so window is available here.
-function isTouchDevice() {
-    return window.matchMedia('(pointer: coarse)').matches;
+interface PortfolioSideBarProps {
+    // On mobile the game isn't loaded, so the sidebar fills the page and always lists the projects
+    isMobile: boolean;
 }
 
-export default function PortfolioSideBar() {
-    const [isTouch] = useState<boolean>(isTouchDevice);
-    // On touch devices the project list starts open, since the game can't be played
-    const [dropDownToggle, setDropDownToggle] = useState<boolean>(isTouch);
+export default function PortfolioSideBar({ isMobile }: PortfolioSideBarProps) {
+    const [dropDownToggle, setDropDownToggle] = useState<boolean>(false);
+    const showProjects = isMobile || dropDownToggle;
 
     function activateDropDown() {
         setDropDownToggle(prev => !prev);
@@ -24,23 +23,23 @@ export default function PortfolioSideBar() {
         <aside className='side-bar-container'>
             <GitHubStats />
 
-            <div className='skip-game'>
-                {isTouch ? (
-                    <p className='touch-note'>The game needs a keyboard (WASD to move, E to open). Here are the projects instead:</p>
-                ) : (
+            {isMobile ? (
+                <p className='touch-note'>The game needs a keyboard, so visit on a computer to explore the world. Here are the projects:</p>
+            ) : (
+                <div className='skip-game'>
                     <p>Want to skip the game and see the projects?</p>
-                )}
-                <button
-                    className='skip-game-button'
-                    onClick={activateDropDown}
-                    aria-expanded={dropDownToggle}
-                    aria-controls='project-display'
-                >
-                    Skip The Game {dropDownToggle ? '▲' : '▼'}
-                </button>
-            </div>
+                    <button
+                        className='skip-game-button'
+                        onClick={activateDropDown}
+                        aria-expanded={dropDownToggle}
+                        aria-controls='project-display'
+                    >
+                        Skip The Game {dropDownToggle ? '▲' : '▼'}
+                    </button>
+                </div>
+            )}
 
-            {dropDownToggle && (
+            {showProjects && (
                 <div id='project-display' className='project-display'>
                     <h3 className='sidebar-section-title'>Projects</h3>
                     {projectZones.map((project) => (

@@ -706,6 +706,19 @@ body {
     }
 }
 
+/* ---- Touch devices: no game, so the sidebar becomes the whole main section ---------------------- */
+.game-main.mobile .side-bar-container {
+    flex: 1;
+    max-height: none;
+    width: min(640px, calc(100% - 24px));
+    margin: 12px auto;
+}
+
+.game-main.mobile .touch-note {
+    font-size: 13px;
+    text-align: center;
+}
+
 .project-overlay .overlay-hint {
     margin-top: 16px;
     font-size: 13px;
